@@ -10,16 +10,16 @@
 #ifndef __RF24_CONFIG_H__
 #define __RF24_CONFIG_H__
 
-#if ARDUINO < 100
-#include <WProgram.h>
-#else
+#if defined(__AVR__)
 #include <Arduino.h>
+#else
+#include <WProgram.h>
 #endif
 
 #include <stddef.h>
 
 // Stuff that is normally provided by Arduino
-#ifdef ARDUINO
+#if defined( __AVR__ ) || defined( __PIC32MX__ )
 #include <SPI.h>
 #else
 #include <stdint.h>
@@ -38,7 +38,7 @@ extern HardwareSPI SPI;
 
 // Avoid spurious warnings
 #if 1
-#if ! defined( NATIVE ) && defined( ARDUINO )
+#if ! defined( NATIVE ) && defined( __AVR__ )
 #undef PROGMEM
 #define PROGMEM __attribute__(( section(".progmem.data") ))
 #undef PSTR
@@ -47,12 +47,10 @@ extern HardwareSPI SPI;
 #endif
 
 // Progmem is Arduino-specific
-#ifdef ARDUINO
+#if defined( __AVR__ )
 #include <avr/pgmspace.h>
 #define PRIPSTR "%S"
 #else
-typedef char const char;
-typedef uint16_t prog_uint16_t;
 #define PSTR(x) (x)
 #define printf_P printf
 #define strlen_P strlen
