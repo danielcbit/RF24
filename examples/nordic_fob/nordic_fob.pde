@@ -59,7 +59,9 @@ void setup(void)
   //
 
   Serial.begin(57600);
+#if defined(__AVR__)
   printf_begin();
+#endif
   printf("\r\nRF24/examples/nordic_fob/\r\n");
 
   //

@@ -88,7 +88,9 @@ void setup(void)
   //
 
   Serial.begin(57600);
+#if defined(__AVR__)
   printf_begin();
+#endif
   printf("\n\rRF24/examples/pingpair_dyn/\n\r");
   printf("ROLE: %s\n\r",role_friendly_name[role]);
 

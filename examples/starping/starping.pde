@@ -129,7 +129,9 @@ void setup(void)
   //
 
   Serial.begin(57600);
+#if defined(__AVR__)
   printf_begin();
+#endif
   printf("\n\rRF24/examples/starping/\n\r");
   printf("ROLE: %s\n\r",role_friendly_name[role]);
   printf("ADDRESS: %i\n\r",node_address);
